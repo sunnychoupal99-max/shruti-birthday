@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Cinematic Birthday Surprise | For Someone Special</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Montserrat:wght=300;400;600&family=Playfair+Display:ital,wght=0,700;1,900&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -31,6 +31,25 @@
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
         body { font-family: 'Montserrat', sans-serif; color: white; perspective: 1000px; }
+
+        /* --- Welcome Overlay Fix --- */
+        #welcome-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: #000;
+            z-index: 100000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s ease, visibility 1s;
+        }
+        #welcome-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
 
         /* --- Music Bar --- */
         #music-bar {
@@ -203,6 +222,12 @@
 
 <body>
 
+    <!-- Autoplay Fix Overlay -->
+    <div id="welcome-overlay">
+        <h2 style="font-family:'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px; font-style: italic; color: var(--gold);">A Surprise Awaits...</h2>
+        <button class="btn-neon" onclick="startExperience()">Click to Enter</button>
+    </div>
+
     <!-- Music Bar -->
     <div id="music-bar" onclick="toggleMusic()">
         <span id="music-icon">🎵</span>
@@ -321,25 +346,26 @@
         const musicIcon = document.getElementById('music-icon');
         let musicStarted = false;
 
-        // Start music on FIRST click anywhere on the page
-        document.addEventListener('click', function startOnFirstClick() {
-            if (!musicStarted) {
-                audio.volume = 0.6;
-                audio.play().then(() => {
-                    musicStarted = true;
-                    musicWave.classList.remove('paused');
-                    musicIcon.textContent = '🎵';
-                }).catch(() => {});
-            }
-        }, { once: true }); // fires only once, then removes itself
+        // Force play immediately when the user clicks the explicit "Click to Enter" button
+        function startExperience() {
+            document.getElementById('welcome-overlay').classList.add('hidden');
+            playAudioSafely();
+        }
+
+        function playAudioSafely() {
+            audio.volume = 0.6;
+            audio.play().then(() => {
+                musicStarted = true;
+                musicWave.classList.remove('paused');
+                musicIcon.textContent = '🎵';
+            }).catch((error) => {
+                console.log("Autoplay was prevented by browser, waiting for another interaction.");
+            });
+        }
 
         function toggleMusic() {
             if (!musicStarted) {
-                audio.volume = 0.6;
-                audio.play().then(() => {
-                    musicStarted = true;
-                    musicWave.classList.remove('paused');
-                }).catch(() => {});
+                playAudioSafely();
                 return;
             }
             if (audio.paused) {
@@ -390,7 +416,6 @@
         function finishSlider() { transitionTo('celebration-page'); }
 
         // --- Celebration Flow ---
-        // Music now auto-starts on first click, so celebFlow just handles visuals
         let celebStep = 1;
         function celebFlow() {
             const btn = document.getElementById('celeb-master-btn');
@@ -403,9 +428,10 @@
                 lights.style.opacity = '1';
                 hint.innerText = "Music makes it better...";
                 btn.innerText = "🎵 Music Playing ✓";
+                // Double check it's playing
+                if(audio.paused) playAudioSafely();
                 celebStep = 2;
             } else if (celebStep === 2) {
-                // Music already playing — just confirm and move on
                 hint.innerText = "Let the colors fly!";
                 btn.innerText = "🎈 Fly Balloons";
                 celebStep = 3;
