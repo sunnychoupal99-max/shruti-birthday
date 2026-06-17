@@ -7,7 +7,7 @@
     <title>A Cinematic Birthday Surprise | For Someone Special</title>
     
     <!-- Google Fonts Imported Correctly -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Montserrat:wght@300;450;600&family=Playfair+Display:ital,wght@0,600;0,900;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght=700&family=Montserrat:wght=300;450;600&family=Playfair+Display:ital,wght=0,600;0,900;1,700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -227,12 +227,12 @@
         .hover-message { font-family: 'Dancing Script', cursive; font-size: 1.9rem; color: #fff; text-align: center; line-height: 1.4; text-shadow: 0 0 15px var(--accent); transform: translateY(25px); transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
         .memory-card:hover .hover-message { transform: translateY(0); }
 
-        /* --- NEW: COMPLIMENTS / TAREER PAGE --- */
+        /* --- COMPLIMENTS / TAREEF PAGE --- */
         #compliments-page { background: radial-gradient(circle at center, #1b070a 0%, #040405 100%); }
         .compliments-container { max-width: 800px; width: 90%; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 40px; padding: 50px 40px; backdrop-filter: blur(20px); box-shadow: 0 40px 90px rgba(0,0,0,0.8); }
         .compliments-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-style: italic; font-weight: 700; color: var(--gold); margin-bottom: 40px; }
-        .compliment-list { list-style: none; text-align: left; max-width: 600px; margin: 0 auto 40px auto; }
-        .compliment-item { font-family: 'Montserrat', sans-serif; font-size: clamp(1rem, 2.5vw, 1.2rem); line-height: 1.8; color: rgba(255,255,255,0.9); margin-bottom: 25px; position: relative; padding-left: 35px; font-weight: 300; }
+        .compliment-list { list-style: none; text-align: left; max-width: 650px; margin: 0 auto 40px auto; }
+        .compliment-item { font-family: 'Montserrat', sans-serif; font-size: clamp(1rem, 2.5vw, 1.15rem); line-height: 1.8; color: rgba(255,255,255,0.9); margin-bottom: 25px; position: relative; padding-left: 35px; font-weight: 300; letter-spacing: 0.5px; }
         .compliment-item::before { content: '✨'; position: absolute; left: 0; top: 2px; color: var(--accent); font-size: 1.2rem; }
 
         .gallery-sparkle { position: absolute; pointer-events: none; background: white; border-radius: 50%; animation: sparkleAnim 2s infinite; }
@@ -365,16 +365,16 @@
         </div>
     </section>
 
-    <!-- NEW: COMPLIMENTS / TAREER SECTION -->
+    <!-- COMPLIMENTS / TAREEF SECTION (ENGLISH) -->
     <section id="compliments-page" class="page">
         <div id="compliments-particles" style="position:absolute;width:100%;height:100%;top:0;left:0;pointer-events:none;"></div>
         <div class="compliments-container">
-            <h2 class="compliments-title">Few Words For Someone Absolute Best...</h2>
+            <h2 class="compliments-title">A Few Words For Someone Extra Special...</h2>
             <ul class="compliment-list">
-                <li class="compliment-item">आपकी सादगी और मुस्कुराने का अंदाज़ कुछ ऐसा है जो किसी का भी दिन रोशन कर सकता है।</li>
-                <li class="compliment-item">आपकी बातें और आपका साथ हमेशा बहुत सुकून देता है, जैसे कोई मीठी धुन चल रही हो।</li>
-                <li class="compliment-item">आपका हर अंदाज़ अपने आप में बेहद ख़ास और सबसे अलग है, जिसे शब्दों में बयां करना मुश्किल है।</li>
-                <li class="compliment-item">आप जैसी हैं, वैसी ही परफेक्ट हैं। दुनिया में आपकी जगह कोई और कभी नहीं ले सकता।</li>
+                <li class="compliment-item">Your genuine simplicity and the effortless way you smile can instantly brighten up the darkest of days.</li>
+                <li class="compliment-item">Your presence bringing an unspoken sense of comfort and peace, much like a beautiful melody playing in the background.</li>
+                <li class="compliment-item">There is a rare grace in everything you do, making you incredibly unique and beyond what mere words can define.</li>
+                <li class="compliment-item">You are perfectly complete just the way you are, holding a place in this world that absolutely no one else could ever fill.</li>
             </ul>
             <button class="btn-neon" onclick="location.reload()">Replay The Magic</button>
         </div>
@@ -428,7 +428,7 @@
             const target = document.getElementById(pageId);
             target.classList.add('active');
             
-            // Scroll to top on page switch (for long pages like gallery)
+            // Scroll to top on page switch
             window.scrollTo({top: 0, behavior: 'smooth'});
 
             if (pageId === 'curtain-page') {
